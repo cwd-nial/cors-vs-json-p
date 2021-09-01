@@ -1,4 +1,4 @@
-module github.com/cwd-nial/go-statik
+module github.com/cwd-nial/cors-vs-json-p
 
 go 1.16
 

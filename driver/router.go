@@ -1,7 +1,7 @@
 package driver
 
 import (
-	"github.com/cwd-nial/go-statik/payment"
+	"github.com/cwd-nial/cors-vs-json-p/jsonp"
 	"github.com/gorilla/mux"
 	"net/http"
 )
@@ -11,7 +11,7 @@ func NewRouter(h Handler) *mux.Router {
 	r := mux.NewRouter()
 
 	setupRoutes(r, h)
-	setupPayment(r)
+	setupJsonP(r)
 
 	return r
 }
@@ -21,7 +21,7 @@ func setupRoutes(r *mux.Router, h Handler) {
 	r.Methods(http.MethodGet).Path("/info").HandlerFunc(h.GetInfo())
 }
 
-func setupPayment(r *mux.Router) {
-	h := http.FileServer(http.FS(payment.GetStaticFiles()))
-	r.PathPrefix("/payment/").Handler(http.StripPrefix("/payment/", h))
+func setupJsonP(r *mux.Router) {
+	h := http.FileServer(http.FS(jsonp.GetStaticFiles()))
+	r.PathPrefix("/jsonp/").Handler(http.StripPrefix("/jsonp/", h))
 }
