@@ -1,6 +1,7 @@
 package driver
 
 import (
+	"github.com/cwd-nial/cors-vs-json-p/cors"
 	"github.com/cwd-nial/cors-vs-json-p/jsonp"
 	"github.com/gorilla/mux"
 	"net/http"
@@ -12,6 +13,7 @@ func NewRouter(h Handler) *mux.Router {
 
 	setupRoutes(r, h)
 	setupJsonP(r)
+	setupCors(r)
 
 	return r
 }
@@ -24,4 +26,9 @@ func setupRoutes(r *mux.Router, h Handler) {
 func setupJsonP(r *mux.Router) {
 	h := http.FileServer(http.FS(jsonp.GetStaticFiles()))
 	r.PathPrefix("/jsonp/").Handler(http.StripPrefix("/jsonp/", h))
+}
+
+func setupCors(r *mux.Router) {
+	h := http.FileServer(http.FS(cors.GetStaticFiles()))
+	r.PathPrefix("/cors/").Handler(http.StripPrefix("/cors/", h))
 }

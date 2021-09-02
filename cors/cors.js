@@ -1,17 +1,15 @@
-function jsonpCallback(json) {
-    console.log(json);
-    window.location = "/info";
-}
-
 $.post({
-    url: "http://[::1]:8091/json-p-target",
+    url: "http://[::1]:8091/cors-target",
     crossDomain: true,
-    dataType: 'jsonp',
+    dataType: 'json',
     cache: false,
-    jsonpCallback: "jsonpCallback",
     withCredentials: true,
     xhrFields: {
         'withCredentials': true // tell the client to send the cookies if any for the requested domain
+    },
+    success: function (data) {
+        console.log("yay!")
+        console.log(data)
     },
     error: function (xhr, textStatus, errorThrown) {
         console.log("nay!")
