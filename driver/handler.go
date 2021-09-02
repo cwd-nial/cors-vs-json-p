@@ -1,6 +1,7 @@
 package driver
 
 import (
+	"encoding/json"
 	"net/http"
 )
 
@@ -18,9 +19,23 @@ func NewHandler() Handler {
 }
 
 func (h handler) GetInfo() HandlerFunc {
+	type Version struct {
+		AppName  string `json:"app"`
+		Revision string `json:"rev"`
+	}
+
 	return func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
 		w.Header().Set("Content-Type", "application/json")
-		_, _ = w.Write([]byte("version: dev-0.0.1"))
+		w.Header().Set("Set-Cookie", "xyz=test")
+
+		err := json.NewEncoder(w).Encode(Version{
+			AppName:  "cors-vs-json-p",
+			Revision: "dev-0.0.1",
+		})
+		if err != nil {
+			panic(err)
+		}
+
+		w.WriteHeader(http.StatusOK)
 	}
 }
