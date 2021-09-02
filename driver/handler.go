@@ -35,7 +35,5 @@ func (h handler) GetInfo() HandlerFunc {
 		if err != nil {
 			panic(err)
 		}
-
-		w.WriteHeader(http.StatusOK)
 	}
 }

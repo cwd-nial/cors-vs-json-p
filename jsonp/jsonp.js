@@ -3,11 +3,10 @@ function aliasGatewayCallback(json) {
     window.location = "/info";
 }
 
-$.ajax({
+$.post({
     url: "http://[::1]:8091/info",
     crossDomain: true,
     dataType: 'jsonp',
-    type: 'GET',
     cache: false,
     jsonpCallback: "aliasGatewayCallback",
     withCredentials: true,
