@@ -26,7 +26,7 @@ func (h handler) GetInfo() HandlerFunc {
 
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		w.Header().Set("Set-Cookie", "xyz=test")
+		w.Header().Set("Set-Cookie", "xyz=test; Secure; HttpOnly")
 
 		err := json.NewEncoder(w).Encode(Version{
 			AppName:  "cors-vs-json-p",
